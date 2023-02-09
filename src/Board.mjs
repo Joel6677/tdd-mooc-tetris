@@ -1,7 +1,8 @@
 export class Board {
   width;
   height;
-  board;
+  falling;
+  fallingBlock;
 
   constructor(width, height) {
     this.width = width;
@@ -11,6 +12,7 @@ export class Board {
 
   drop(block) {
     this.falling = true
+    this.fallingBlock = block.color
   }
 
   tick() {
@@ -26,7 +28,7 @@ export class Board {
     for (let i = 0; i < this.height; i++) {
       for (let j = 0; j < this.width; j++) {
         if (this.falling && i == 0 && j == middle) {
-          board += 'X'
+          board += this.fallingBlock
         } else {
           board += '.'
         }
