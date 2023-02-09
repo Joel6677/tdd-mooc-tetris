@@ -3,11 +3,13 @@ export class Board {
   height;
   falling;
   fallingBlock;
+  tickNumber;
 
   constructor(width, height) {
     this.width = width;
     this.height = height;
     this.falling = false
+    this.tickNumber = 0
   }
 
   drop(block) {
@@ -16,7 +18,8 @@ export class Board {
   }
 
   tick() {
-
+    console.log('tick')
+    this.tickNumber += 1
   }
 
 
@@ -27,7 +30,7 @@ export class Board {
 
     for (let i = 0; i < this.height; i++) {
       for (let j = 0; j < this.width; j++) {
-        if (this.falling && i == 0 && j == middle) {
+        if (this.falling && i == this.tickNumber && j == middle) {
           board += this.fallingBlock
         } else {
           board += '.'
