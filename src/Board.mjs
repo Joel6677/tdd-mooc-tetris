@@ -26,6 +26,10 @@ export class Board {
     this.tickNumber += 1
   }
 
+  hasFalling() {
+    return this.falling ? true : false
+  }
+
 
   toString() {
     
