@@ -22,8 +22,10 @@ export class Board {
   }
 
   tick() {
-    console.log('tick')
     this.tickNumber += 1
+    if (this.tickNumber === this.height) {
+      this.falling = false
+    }
   }
 
   hasFalling() {
@@ -40,13 +42,15 @@ export class Board {
       for (let j = 0; j < this.width; j++) {
         if (this.falling && i == this.tickNumber && j == middle) {
           board += this.fallingBlock
+        } else if (this.fallingBlock && !this.falling && i == this.height-1 && j == middle) {
+          board += this.fallingBlock
         } else {
           board += '.'
         }
       }
       board += "\n"
     }
-
+    console.log(board)
     return board;
   }
 }
