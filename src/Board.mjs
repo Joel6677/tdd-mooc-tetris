@@ -13,8 +13,12 @@ export class Board {
   }
 
   drop(block) {
-    this.falling = true
-    this.fallingBlock = block.color
+    if (this.falling === true) {
+      throw new Error('already falling')
+    } else {
+      this.falling = true
+      this.fallingBlock = block.color
+    }
   }
 
   tick() {
