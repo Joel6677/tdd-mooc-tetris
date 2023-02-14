@@ -4,13 +4,18 @@ export class Board {
   falling;
   fallingBlock;
   tickNumber;
+  grid;
+  middle;
 
   constructor(width, height) {
     this.width = width;
     this.height = height;
+    this.middle = Math.floor(this.width / 2);
     this.falling = false
     this.tickNumber = 0
+    this.grid = [...Array(height)].map(e => Array(width).fill('.'));
   }
+
 
   drop(block) {
     if (this.falling === true) {
@@ -18,13 +23,25 @@ export class Board {
     } else {
       this.falling = true
       this.fallingBlock = block.color
+      this.grid[0][this.middle] = block.color
     }
   }
 
   tick() {
+
+    let blockUnder = this.tickNumber+1 < this.height && this.grid[this.tickNumber+1][this.middle] != '.'
+       ? this.grid[this.tickNumber+1][this.middle] : null
+    
     this.tickNumber += 1
-    if (this.tickNumber === this.height) {
+
+    if (this.tickNumber === this.height || blockUnder) {
       this.falling = false
+      this.tickNumber = 0
+    }
+
+    if (this.falling === true) {
+      this.grid[this.tickNumber][this.middle] = this.grid[this.tickNumber-1][this.middle]
+      this.grid[this.tickNumber-1][this.middle] = '.'
     }
   }
 
@@ -36,21 +53,14 @@ export class Board {
   toString() {
     
     let board = ''
-    let middle = this.width % 2
 
     for (let i = 0; i < this.height; i++) {
       for (let j = 0; j < this.width; j++) {
-        if (this.falling && i == this.tickNumber && j == middle) {
-          board += this.fallingBlock
-        } else if (this.fallingBlock && !this.falling && i == this.height-1 && j == middle) {
-          board += this.fallingBlock
-        } else {
-          board += '.'
-        }
+        board += this.grid[i][j]
       }
       board += "\n"
     }
-    console.log(board)
+
     return board;
   }
 }
