@@ -1,22 +1,21 @@
 export class RotatingShape {
     shape
+    grid
 
     constructor(shape) {
-        this.shape = shape
+        this.shape = shape.replace(/[\r\t\f\v ]/g, '')
+        // this.grid = [...Array(height)].map(e => Array(width).fill());
+    }
+
+    rotateRight() {
+        for (let i = 0; i < 2; i++) {
+
+        }
     }
 
     toString() {
 
-        let modified = ''
-
-        for (let i = 0; i < this.shape.length; i++) {
-            console.log(this.shape[i])
-            if (this.shape[i] !== ' ') {
-                modified += this.shape[i]
-            }
-        }
-        
-        return modified+'\n'
+        return this.shape+'\n'
     }
     
 }
